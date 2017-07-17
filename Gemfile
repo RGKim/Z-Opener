@@ -31,6 +31,8 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'simple_form'
+gem 'jquery-rails'
+gem 'coffee-script-source', '1.8.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
