@@ -1,2 +1,19 @@
 <h1>Welcome#index</h1>
 <p>Find me in app/views/welcome/index.html.erb</p>
+<%
+
+SoftLayer::Client.default_client = @softlayer_client = SoftLayer::Client.new(
+  :username => "c001220_skcc70253",             # enter your username here
+      :api_key => "7d89165fd6d8fd259abfb7bba886ba00cb5428174c5e276cd595ed58091d3757",   # enter your api key here
+      :endpoint_URL => @API_PUBLIC_ENDPOINT
+)
+
+@account_service = @softlayer_client.service_named("Account")
+
+@list = SoftLayer::VirtualServer.find_servers
+
+%>
+
+<% for @item in @list %>
+<li><%= @item %></li>
+<% end %>

@@ -35,7 +35,10 @@ gem 'jquery-rails'
 gem 'coffee-script-source', '1.8.0'
 
 gem 'softlayer_api', '~> 3.2', '>= 3.2.1'
+gem 'xmlrpc', '~> 0.3.0'
 
+gem 'awesome_print'
+gem 'json'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
