@@ -34,6 +34,8 @@ gem 'simple_form'
 gem 'jquery-rails'
 gem 'coffee-script-source', '1.8.0'
 
+gem 'softlayer_api', '~> 3.2', '>= 3.2.1'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
