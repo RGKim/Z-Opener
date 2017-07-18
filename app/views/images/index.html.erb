@@ -9,6 +9,7 @@
       <th>Type</th>
       <th>Created date</th>
       <th>Account</th>
+      <th>Template Id</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,9 +18,10 @@
     <% @images.each do |image| %>
       <tr>
         <td><%= image.template_name %></td>
-        <td><%= image.type %></td>
+        <td><%= image.image_type %></td>
         <td><%= image.created_date %></td>
         <td><%= image.account %></td>
+        <td><%= image.templateid %></td>
         <td><%= link_to 'Show', image %></td>
         <td><%= link_to 'Edit', edit_image_path(image) %></td>
         <td><%= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure?' } %></td>

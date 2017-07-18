@@ -5,6 +5,7 @@ class CreateImages < ActiveRecord::Migration[5.1]
       t.string :type
       t.date :created_date
       t.string :account
+      t.string :templateid
 
       t.timestamps
     end

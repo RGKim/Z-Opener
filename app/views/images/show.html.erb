@@ -6,11 +6,6 @@
 </p>
 
 <p>
-  <strong>Type:</strong>
-  <%= @image.type %>
-</p>
-
-<p>
   <strong>Created date:</strong>
   <%= @image.created_date %>
 </p>
@@ -18,6 +13,11 @@
 <p>
   <strong>Account:</strong>
   <%= @image.account %>
+</p>
+
+<p>
+  <strong>Template Id:</strong>
+  <%= @image.templateid %>
 </p>
 
 <%= link_to 'Edit', edit_image_path(@image) %> |

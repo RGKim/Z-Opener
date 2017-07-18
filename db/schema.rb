@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170718012929) do
+ActiveRecord::Schema.define(version: 20170718021227) do
 
   create_table "devices", force: :cascade do |t|
     t.string "domain"
@@ -26,11 +26,12 @@ ActiveRecord::Schema.define(version: 20170718012929) do
 
   create_table "images", force: :cascade do |t|
     t.string "template_name"
-    t.string "type"
+    t.string "image_type"
     t.date "created_date"
     t.string "account"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "templateid"
   end
 
   create_table "virtualmachines", force: :cascade do |t|
