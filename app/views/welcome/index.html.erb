@@ -9,6 +9,7 @@ SoftLayer::Client.default_client = @softlayer_client = SoftLayer::Client.new(
 )
 
 @account_service = @softlayer_client.service_named("Account")
+@account = @account_service.getObject
 
 @list = SoftLayer::VirtualServer.find_servers
 
