@@ -1,5 +1,6 @@
 class ImagesController < ApplicationController
   before_action :set_image, only: [:show, :edit, :update, :destroy]
+  before_action :set_client
 
   # GET /images
   # GET /images.json
@@ -59,6 +60,45 @@ class ImagesController < ApplicationController
       format.html { redirect_to images_url, notice: 'Image was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def set_client
+    SoftLayer::Client.default_client = @softlayer_client = SoftLayer::Client.new(
+      :username => "c001220_skcc70253",             # enter your username here
+          :api_key => "7d89165fd6d8fd259abfb7bba886ba00cb5428174c5e276cd595ed58091d3757",   # enter your api key here
+          :endpoint_URL => @API_PUBLIC_ENDPOINT
+    )
+  end
+
+
+  def order_template
+    @order_template = {
+    hostname: 'test_rails',
+    domain: 'test001.sk.com',
+    datacenter: 'seo01',
+    cores: 1, # 2 x 2.0 GHz Cores
+    memory: 1, # 4GB RAM
+    private_network_only: false,
+    dedicated_host_only: false,
+    #os_reference_code: 'CENTOS_6_64', # CentOS 6.latest minimal (64 bit)
+    image_template: SoftLayer::ImageTemplate.template_with_global_id('1682381'),
+    use_local_disk: false, # Use a SAN disk
+    hourly: true # Charge me for hourly use, rather than monthly.
+    }
+  end
+
+  def order
+    @order = SoftLayer::VirtualServerOrder.new
+    @order_template.keys.each do |k|
+    @order.send("#{k}=", @order_template[k])
+    end
+  end
+
+  def order_page
+    order_template
+    order
+    @options = create_object_options
+    render "order_page"
   end
 
   private

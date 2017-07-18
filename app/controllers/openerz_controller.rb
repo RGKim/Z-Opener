@@ -1,0 +1,2 @@
+class OpenerzController < ApplicationController
+end

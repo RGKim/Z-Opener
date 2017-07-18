@@ -1,0 +1,2 @@
+module OpenerzHelper
+end
