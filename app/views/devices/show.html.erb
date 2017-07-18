@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Domain:</strong>
+  <%= @device.domain %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @device.type %>
+</p>
+
+<p>
+  <strong>Public ip:</strong>
+  <%= @device.public_ip %>
+</p>
+
+<p>
+  <strong>Private ip:</strong>
+  <%= @device.private_ip %>
+</p>
+
+<p>
+  <strong>Region:</strong>
+  <%= @device.region %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @device.state %>
+</p>
+
+<p>
+  <strong>Order date:</strong>
+  <%= @device.order_date %>
+</p>
+
+<%= link_to 'Edit', edit_device_path(@device) %> |
+<%= link_to 'Back', devices_path %>
