@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170718021227) do
+ActiveRecord::Schema.define(version: 20170719051243) do
 
   create_table "devices", force: :cascade do |t|
     t.string "domain"
@@ -32,6 +32,24 @@ ActiveRecord::Schema.define(version: 20170718021227) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "templateid"
+    t.string "os"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "hostname"
+    t.string "domain"
+    t.integer "location"
+    t.string "os"
+    t.boolean "usehourlypricing"
+    t.integer "cpu"
+    t.integer "ram"
+    t.integer "first_disk"
+    t.integer "second_disk"
+    t.string "bandwidth"
+    t.integer "image_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["image_id"], name: "index_orders_on_image_id"
   end
 
   create_table "virtualmachines", force: :cascade do |t|

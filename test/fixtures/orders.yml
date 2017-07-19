@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  hostname: MyString
+  domain: MyString
+  location: 1
+  os: MyString
+  usehourlypricing: false
+  cpu: 1
+  ram: 1
+  first_disk: 1
+  second_disk: 1
+  bandwidth: MyString
+  image: one
+
+two:
+  hostname: MyString
+  domain: MyString
+  location: 1
+  os: MyString
+  usehourlypricing: false
+  cpu: 1
+  ram: 1
+  first_disk: 1
+  second_disk: 1
+  bandwidth: MyString
+  image: two

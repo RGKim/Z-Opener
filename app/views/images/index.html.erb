@@ -22,9 +22,11 @@
         <td><%= image.created_date %></td>
         <td><%= image.account %></td>
         <td><%= image.templateid %></td>
+        <td><%= image.os %></td>
         <td><%= link_to 'Show', image %></td>
         <td><%= link_to 'Edit', edit_image_path(image) %></td>
         <td><%= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Order', image, method: :order_page %></td>
       </tr>
     <% end %>
   </tbody>

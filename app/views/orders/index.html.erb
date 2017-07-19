@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Orders</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Hostname</th>
+      <th>Domain</th>
+      <th>Location</th>
+      <th>Os</th>
+      <th>Usehourlypricing</th>
+      <th>Cpu</th>
+      <th>Ram</th>
+      <th>First disk</th>
+      <th>Second disk</th>
+      <th>Bandwidth</th>
+      <th>Image</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.hostname %></td>
+        <td><%= order.domain %></td>
+        <td><%= order.location %></td>
+        <td><%= order.os %></td>
+        <td><%= order.usehourlypricing %></td>
+        <td><%= order.cpu %></td>
+        <td><%= order.ram %></td>
+        <td><%= order.first_disk %></td>
+        <td><%= order.second_disk %></td>
+        <td><%= order.bandwidth %></td>
+        <td><%= order.image %></td>
+        <td><%= link_to 'Show', (@image.present? ? [order.image, order] : order), class: 'btn btn-default' %></td>
+        <td><%= link_to 'Edit', (@image.present? ? edit_image_order_path(order.image, order) : edit_post_path(order)), class: 'btn btn-default' %></td>
+        <td><%= link_to 'Destroy', (@image.present? ? [order.image, order] : order), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Order', (@image.present? ?  new_image_order_path(@image) : new_order_path), class: 'btn btn-default' %>

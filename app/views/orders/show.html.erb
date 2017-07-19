@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Hostname:</strong>
+  <%= @order.hostname %>
+</p>
+
+<p>
+  <strong>Domain:</strong>
+  <%= @order.domain %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @order.location %>
+</p>
+
+<p>
+  <strong>Os:</strong>
+  <%= @order.os %>
+</p>
+
+<p>
+  <strong>Usehourlypricing:</strong>
+  <%= @order.usehourlypricing %>
+</p>
+
+<p>
+  <strong>Cpu:</strong>
+  <%= @order.cpu %>
+</p>
+
+<p>
+  <strong>Ram:</strong>
+  <%= @order.ram %>
+</p>
+
+<p>
+  <strong>First disk:</strong>
+  <%= @order.first_disk %>
+</p>
+
+<p>
+  <strong>Second disk:</strong>
+  <%= @order.second_disk %>
+</p>
+
+<p>
+  <strong>Bandwidth:</strong>
+  <%= @order.bandwidth %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @order.image %>
+</p>
+
+<%= link_to 'Edit', (@image.present? ? edit_image_order_path(@image)  : edit_order_path(@order)), class: 'btn btn-default' %>
+<%= link_to 'List', (@image.present? ? image_orders_path(@image) : orders_path), class: 'btn btn-default' %>
