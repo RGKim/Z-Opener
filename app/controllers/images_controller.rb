@@ -75,7 +75,7 @@ class ImagesController < ApplicationController
       'virtualGuests' => [{
          'hostname' => 'testRuby',
          'domain'   => 'example.com',
-         'primaryBackendNetworkComponent' => { 'networkVlan' => { 'id' => 1286783 } }
+#         'primaryBackendNetworkComponent' => { 'networkVlan' => { 'id' => 1286783 } }
       }],
       'location' => 1555995,
       'packageId' => 46,
@@ -84,11 +84,11 @@ class ImagesController < ApplicationController
       'prices' => [
          {'id' => 1640 }, # 1 x 2.0 GHz Core
          {'id' => 1644 }, # 1 GB RAM
-         {'id' => "" }, # CENTOS_6_64
-         {'id' => 1639 }, # 100 GB (SAN) First Disk
-         {'id' => 2277 }, # 100 GB (SAN) Second Disk
-         {'id' => "" }, # 250 GB Bandwidth
-         {'id' => 274 }, # 1 Gbps Public & Private Network Uplinks
+         {'id' => 171609 }, # CENTOS_6_64
+         {'id' => 2202 }, # 100 GB (SAN) First Disk
+         {'id' => 2255 }, # 100 GB (SAN) Second Disk
+         {'id' => 1800 }, # 250 GB Bandwidth
+         {'id' => 273 }, # 1 Gbps Public & Private Network Uplinks
          {'id' => 21 }, # 1 IP Address
          {'id' => 420 }, # Unlimited SSL VPN Users & 1 PPTP VPN User per account
          {'id' => 56 }, # Host Ping and TCP Service Monitoring
@@ -99,7 +99,7 @@ class ImagesController < ApplicationController
       ]
     }
 
-    @order = @softlayer_client['Product_Order'].verifyOrder(productOrder)
+    @order = @softlayer_client['Product_Order'].placeOrder(productOrder)
   end
 
   def pricing
@@ -119,8 +119,8 @@ class ImagesController < ApplicationController
   end
 
   def order_page
-#    server_order
-    pricing
+    server_order
+#    pricing
     render 'order_page'
   end
 
