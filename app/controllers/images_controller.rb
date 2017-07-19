@@ -70,73 +70,60 @@ class ImagesController < ApplicationController
     )
   end
 
-
-  def order_template
-    @order_template = {
-    hostname: 'test_rails',
-    domain: 'test001.sk.com',
-    datacenter: SoftLayer::Datacenter.datacenter_named('seo01'),
-    cores: 1, # 2 x 2.0 GHz Cores
-    memory: 1, # 4GB RAM
-    private_network_only: false,
-    dedicated_host_only: false,
-    os_reference_code: 'UBUNTU_16_64', # CentOS 6.latest minimal (64 bit)
-    image_template: SoftLayer::ImageTemplate.template_with_global_id('1685169'),
-    use_local_disk: false, # Use a SAN disk
-    hourly: true # Charge me for hourly use, rather than monthly.
+  def server_order
+    productOrder = {
+      'virtualGuests' => [{
+         'hostname' => 'testRuby',
+         'domain'   => 'example.com',
+         'primaryBackendNetworkComponent' => { 'networkVlan' => { 'id' => 1286783 } }
+      }],
+      'location' => 1555995,
+      'packageId' => 46,
+      'operatingSystemReferenceCode' => 'UBUNTU_16_64',
+      'useHourlyPricing' => true,
+      'prices' => [
+         {'id' => 1640 }, # 1 x 2.0 GHz Core
+         {'id' => 1644 }, # 1 GB RAM
+         {'id' => "" }, # CENTOS_6_64
+         {'id' => 1639 }, # 100 GB (SAN) First Disk
+         {'id' => 2277 }, # 100 GB (SAN) Second Disk
+         {'id' => "" }, # 250 GB Bandwidth
+         {'id' => 274 }, # 1 Gbps Public & Private Network Uplinks
+         {'id' => 21 }, # 1 IP Address
+         {'id' => 420 }, # Unlimited SSL VPN Users & 1 PPTP VPN User per account
+         {'id' => 56 }, # Host Ping and TCP Service Monitoring
+         {'id' => 57 }, # Email and Ticket
+         {'id' => 418 }, # NESSUS_VULNERABILITY_ASSESSMENT_REPORTING
+         {'id' => 905 }, # REBOOT_REMOTE_CONSOLE
+         {'id' => 58 }  # AUTOMATED_NOTIFICATION
+      ]
     }
+
+    @order = @softlayer_client['Product_Order'].verifyOrder(productOrder)
   end
 
-  def order
-    @order = SoftLayer::VirtualServerOrder.new
-    @order_template.keys.each do |k|
-    @order.send("#{k}=", @order_template[k])
-    end
+  def pricing
+
+    object_filter = SoftLayer::ObjectFilter.new
+    object_filter.set_criteria_for_key_path('items.prices.locationGroupId',
+    	'operation' => 'in',
+            'options' => [{
+            'name' => 'data',
+            'value' => 1555995
+            }])
+
+
+    location = @softlayer_client['SoftLayer_Product_Package']
+    @result = location.object_with_id(46).object_filter(object_filter).getItems
+
   end
 
   def order_page
-    # @core_options = core_options(client = nil)
-    #
-    # @disk_options = disk_options(client = nil)
-    # @portspped_options = max_port_speed_options(client = nil)
-    # @memory_options = memory_options(client = nil)
-    # @os_options = os_reference_code_options(client = nil)
-
-    @datacenter = SoftLayer::Datacenter.datacenter_named('seo01')
-    order_template
-    order
-
-    render "order_page"
+#    server_order
+    pricing
+    render 'order_page'
   end
-  #
-  # def create_object_options(client = nil)
-  #   softlayer_client = @softlayer_client || Client.default_client
-  #   raise "#{__method__} requires a client but none was given and Client::default_client is not set" if !softlayer_client
-  #
-  #   @@create_object_options ||= nil
-  #   @@create_object_options = softlayer_client[:Virtual_Guest].getCreateObjectOptions() if !@@create_object_options
-  #   @@create_object_options
-  # end
-  #
-  # def core_options(client = nil)
-  #   create_object_options(client)['processors'].collect { |processor_spec| processor_spec['template']['startCpus'] }.uniq.sort!
-  # end
-  #
-  # def disk_options(client = nil)
-  #   create_object_options(client)['blockDevices'].collect { |block_device_spec| block_device_spec['template']['blockDevices'][0]['diskImage']['capacity']}.uniq.sort!
-  # end
-  #
-  # def max_port_speed_options(client = nil)
-  #   create_object_options(client)['networkComponents'].collect { |component_spec| component_spec['template']['networkComponents'][0]['maxSpeed'] }
-  # end
-  #
-  # def memory_options(client = nil)
-  #   create_object_options(client)['memory'].collect { |memory_spec| memory_spec['template']['maxMemory'].to_i / 1024}.uniq.sort!
-  # end
-  #
-  # def os_reference_code_options(client = nil)
-  #   create_object_options(client)['operatingSystems'].collect { |os_spec| os_spec['template']['operatingSystemReferenceCode'] }.uniq.sort!
-  # end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
