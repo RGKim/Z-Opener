@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   resources :images do
   resources :orders
   end
-  resources :virtualmachines
   resources :devices
   resources :images
   root 'welcome#index'

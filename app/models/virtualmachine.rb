@@ -1,2 +1,0 @@
-class Virtualmachine < ApplicationRecord
-end
