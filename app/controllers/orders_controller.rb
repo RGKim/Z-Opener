@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   before_action :set_image
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   before_action :set_collection, only: [:new]
+  before_action :set_client
 
   # GET /orders
   # GET /orders.json
@@ -28,15 +29,16 @@ class OrdersController < ApplicationController
   def create
     @order = @image.present? ? @image.orders.new(order_params) : Order.new(order_params)
 
-    respond_to do |format|
+#    respond_to do |format|
       if @order.save
-        format.html { redirect_to (@image.present? ? [@post.image, @order] : @order), notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
-      else
-        format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
+#        format.html { redirect_to (@image.present? ? [@order.image, @order] : @order), notice: 'Order was successfully created.' }
+#        format.json { render :show, status: :created, location: @order }
+        redirect_to devices_url
+        server_order
+#      else
+#        format.html { render :new }
+#        format.json { render json: @order.errors, status: :unprocessable_entity }
       end
-    end
   end
 
   # PATCH/PUT /orders/1
@@ -58,10 +60,52 @@ class OrdersController < ApplicationController
   def destroy
     @order.destroy
     respond_to do |format|
-      format.html { redirect_to (@image.present? ? image_order_url : orderss_url), notice: 'Order was successfully destroyed.' }
+      format.html { redirect_to (@image.present? ? image_order_url : orders_url), notice: 'Order was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
+
+  def set_client
+    SoftLayer::Client.default_client = @softlayer_client = SoftLayer::Client.new(
+      :username => "c001220_skcc70253",             # enter your username here
+          :api_key => "7d89165fd6d8fd259abfb7bba886ba00cb5428174c5e276cd595ed58091d3757",   # enter your api key here
+          :endpoint_URL => @API_PUBLIC_ENDPOINT
+    )
+  end
+
+  def server_order
+    productOrder = {
+      'virtualGuests' => [{
+         'hostname' => @order.hostname,
+         'domain'   => @order.domain,
+#         'primaryBackendNetworkComponent' => { 'networkVlan' => { 'id' => 1286783 } }
+      }],
+      'location' => @order.location,
+      'packageId' => 46,
+      'operatingSystemReferenceCode' => @order.os,
+      'useHourlyPricing' => @order.usehourlypricing,
+      'prices' => [
+         {'id' => @order.cpu }, # 1 x 2.0 GHz Core
+         {'id' => @order.ram }, # 1 GB RAM
+         {'id' => @order.os }, # CENTOS_6_64
+         {'id' => @order.first_disk }, # 100 GB (SAN) First Disk
+         {'id' => @order.second_disk }, # 100 GB (SAN) Second Disk
+         {'id' => @order.bandwidth }, # 250 GB Bandwidth
+         {'id' => 273 }, # 1 Gbps Public & Private Network Uplinks
+         {'id' => 21 }, # 1 IP Address
+         {'id' => 420 }, # Unlimited SSL VPN Users & 1 PPTP VPN User per account
+         {'id' => 56 }, # Host Ping and TCP Service Monitoring
+         {'id' => 57 }, # Email and Ticket
+         {'id' => 418 }, # NESSUS_VULNERABILITY_ASSESSMENT_REPORTING
+         {'id' => 905 }, # REBOOT_REMOTE_CONSOLE
+         {'id' => 58 }  # AUTOMATED_NOTIFICATION
+      ],
+      'imageTemplateId' => @image.templateid
+    }
+
+    @order = @softlayer_client['Product_Order'].placeOrder(productOrder)
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -83,6 +127,6 @@ class OrdersController < ApplicationController
     end
 
     def set_collection
-      @OperatingSystems = {'Ubuntu' => 171609}
+      @OperatingSystems = {'UBUNTU_16_64' => 171609}
     end
 end
