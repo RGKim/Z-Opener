@@ -4,7 +4,7 @@
     <%= f.input :hostname %>
     <%= f.input :domain %>
     <%= f.input :location, collection: [1555995] %>
-    <%= f.input :os, collection: [@image.os] %>
+    <%= f.input :os, :collection => @OperatingSystems %>
     <%= f.input :usehourlypricing %>
     <%= f.input :cpu %>
     <%= f.input :ram %>

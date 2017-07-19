@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :set_image
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_collection, only: [:new]
 
   # GET /orders
   # GET /orders.json
@@ -81,4 +82,7 @@ class OrdersController < ApplicationController
       params.require(:order).permit(:hostname, :domain, :location, :os, :usehourlypricing, :cpu, :ram, :first_disk, :second_disk, :bandwidth, :image_id)
     end
 
+    def set_collection
+      @OperatingSystems = {'Ubuntu' => 171609}
+    end
 end
