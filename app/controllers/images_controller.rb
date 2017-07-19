@@ -96,7 +96,8 @@ class ImagesController < ApplicationController
          {'id' => 418 }, # NESSUS_VULNERABILITY_ASSESSMENT_REPORTING
          {'id' => 905 }, # REBOOT_REMOTE_CONSOLE
          {'id' => 58 }  # AUTOMATED_NOTIFICATION
-      ]
+      ],
+      'imageTemplateId' => 1685169
     }
 
     @order = @softlayer_client['Product_Order'].placeOrder(productOrder)
