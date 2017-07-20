@@ -101,7 +101,8 @@ class OrdersController < ApplicationController
          {'id' => 905 }, # REBOOT_REMOTE_CONSOLE
          {'id' => 58 }  # AUTOMATED_NOTIFICATION
       ],
-      'imageTemplateId' => @image.templateid
+      'imageTemplateId' => @image.templateid,
+      #'provisionScripts' => ['https://raw.githubusercontent.com/neuron03/provision/master/redmine_provision.sh']
     }
 
     @order = @softlayer_client['Product_Order'].placeOrder(productOrder)
