@@ -130,6 +130,13 @@ class OrdersController < ApplicationController
     end
 
     def set_collection
+      @location = {'Amsterdam 1'=> 265592, 'Amsterdam 3' => 814994, 'Chennai 1' => 1004997, 'Dallas 5' => 138124, 'Dallas 6' => 154820,
+                  'Dallas 9' => 449494, 'Dallas 10' => 1441195, 'Dallas 12' => 1854795, 'Dallas 13' => 1854895, 'Frankfrut 2' => 449506,
+                  'Hong kong 2' => 352494 , 'Houston 2' => 142775, 'London 2' => 358694, 'London 4' => 2017395, 'Melbourne 1' => 449596,
+                  'Milan 1' => 815394, 'Montreal 1' => 449610, 'Oslo 1' => 1541257, 'Paris 1' => 449500, 'San hose 1' => 168642,
+                  'San hose 3' => 1004995, 'Sau Paulo 1' => 983497, 'Seattle 1' => 18171, 'Seoul 1' => 1555995, 'Singapore 1' => 224092,
+                  'Sydney 1' => 449612, 'Sydney 4' => 2013295, 'Tokyo 1' => 449604, 'Toronto 1' => 448994, 'Washington 1' => 37473,
+                  'Washington 4' => 957095, 'Washington 6' => 2017695, 'Washington 7' => 2017603}
       @operating_systems = {'UBUNTU_16_64 (minimal)' => 171609, 'UBUNTU_16.64 (LAMP)' => 175787,
                             'CENTOS 7 (minimal)' => 46466, 'CENTOS 7 (LAMP)' => 46456}
       @cpu_core = {'1 x 2.0 GHz Core' => 1640, '2 x 2.0 GHz Core' => 1641, '4 x 2.0 GHz Core' => 1642, '8 x 2.0 GHz Core' => 1643,

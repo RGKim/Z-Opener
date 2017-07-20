@@ -3,7 +3,7 @@
   <div class="form-inputs">
     <%= f.input :hostname %>
     <%= f.input :domain %>
-    <%= f.input :location, collection: [1555995] %>
+    <%= f.input :location, collection: @location %>
     <%= f.input :usehourlypricing %>
     <%= f.input :cpu, collection: @cpu_core %>
     <%= f.input :ram, collection: @ram %>
