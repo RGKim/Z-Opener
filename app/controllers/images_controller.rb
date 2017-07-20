@@ -64,13 +64,7 @@ class ImagesController < ApplicationController
     end
   end
 
-  def set_client
-    SoftLayer::Client.default_client = @softlayer_client = SoftLayer::Client.new(
-      :username => "c001220_skcc70253",             # enter your username here
-          :api_key => "7d89165fd6d8fd259abfb7bba886ba00cb5428174c5e276cd595ed58091d3757",   # enter your api key here
-          :endpoint_URL => @API_PUBLIC_ENDPOINT
-    )
-  end
+
 
 #   def server_order
 #     productOrder = {
@@ -124,6 +118,13 @@ class ImagesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_client
+      SoftLayer::Client.default_client = @softlayer_client = SoftLayer::Client.new(
+        :username => current_user.ibm_id,             # enter your username here
+            :api_key => current_user.ibm_key,   # enter your api key here
+            :endpoint_URL => @API_PUBLIC_ENDPOINT
+      )
+    end
     def set_os_collection
       @operating_systems = {'UBUNTU_16_64 (minimal)' => 171609, 'UBUNTU_16.64 (LAMP)' => 175787,
                             'CENTOS 7 (minimal)' => 46466, 'CENTOS 7 (LAMP)' => 46456}

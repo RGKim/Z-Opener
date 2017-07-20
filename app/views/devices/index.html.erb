@@ -1,27 +1,20 @@
-<%
-SoftLayer::Client.default_client = @softlayer_client = SoftLayer::Client.new(
-  :username => "c001220_skcc70253",             # enter your username here
-      :api_key => "7d89165fd6d8fd259abfb7bba886ba00cb5428174c5e276cd595ed58091d3757",   # enter your api key here
-      :endpoint_URL => @API_PUBLIC_ENDPOINT
-)
-%>
 
-<% account = SoftLayer::Account.account_for_client() %>
-<% @servers = account.servers%>
 
-<% @servers.each do |server| %>
-  <% ip_field = server.primary_public_ip ? server.primary_public_ip : "No Public Interface" %>
-  <%= server.fqdn %>
-  <%= server.datacenter["longName"] %>
-  <%= server.primary_private_ip %>
-  <%= server.primary_public_ip %>
-  <%= server['blockDeviceTemplateGroup']['name'] %>
-
-<% end %>
 
 <% if user_signed_in? %>
-  <p>현재 로그인된 유저의 이메일 : <%= current_user.email %></p>
-  <p><%= link_to "로그아웃", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure?" } %></p>
+  <% account = SoftLayer::Account.account_for_client() %>
+  <% @servers = account.servers%>
+
+  <% @servers.each do |server| %>
+    <% ip_field = server.primary_public_ip ? server.primary_public_ip : "No Public Interface" %>
+    <%= server.fqdn %>
+    <%= server.datacenter["longName"] %>
+    <%= server.primary_private_ip %>
+    <%= server.primary_public_ip %>
+    <%= server['blockDeviceTemplateGroup']['name'] %>
+
+  <% end %>
+
 <% else %>
-  <p><%= link_to "로그인", new_user_session_path %></p>
+  로그인을 하세요.
 <% end %>
