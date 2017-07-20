@@ -103,6 +103,7 @@ class OrdersController < ApplicationController
       ],
       'imageTemplateId' => @image.templateid,
       #'provisionScripts' => ['https://raw.githubusercontent.com/neuron03/provision/master/redmine_provision.sh']
+      'provisionScripts' => [@image.provision_script]
     }
 
     @order = @softlayer_client['Product_Order'].placeOrder(productOrder)

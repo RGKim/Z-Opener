@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170719051243) do
+ActiveRecord::Schema.define(version: 20170720011653) do
 
   create_table "devices", force: :cascade do |t|
     t.string "domain"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20170719051243) do
     t.datetime "updated_at", null: false
     t.string "templateid"
     t.string "os"
+    t.string "provision_script"
   end
 
   create_table "orders", force: :cascade do |t|
