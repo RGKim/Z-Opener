@@ -119,12 +119,6 @@ class ImagesController < ApplicationController
 #
 #   end
 #
-#   def order_page
-# #    server_order
-# #    pricing
-#     render 'order_page'
-#   end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.

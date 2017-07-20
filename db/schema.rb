@@ -12,17 +12,17 @@
 
 ActiveRecord::Schema.define(version: 20170720040549) do
 
-  create_table "devices", force: :cascade do |t|
-    t.string "domain"
-    t.string "type"
-    t.string "public_ip"
-    t.string "private_ip"
-    t.string "region"
-    t.string "state"
-    t.date "order_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+  # create_table "devices", force: :cascade do |t|
+  #   t.string "domain"
+  #   t.string "type"
+  #   t.string "public_ip"
+  #   t.string "private_ip"
+  #   t.string "region"
+  #   t.string "state"
+  #   t.date "order_date"
+  #   t.datetime "created_at", null: false
+  #   t.datetime "updated_at", null: false
+  # end
 
   create_table "images", force: :cascade do |t|
     t.string "template_name"
@@ -55,12 +55,12 @@ ActiveRecord::Schema.define(version: 20170720040549) do
     t.index ["image_id"], name: "index_orders_on_image_id"
   end
 
-  create_table "virtualmachines", force: :cascade do |t|
-    t.string "datacenter"
-    t.string "price"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+  # create_table "virtualmachines", force: :cascade do |t|
+  #   t.string "datacenter"
+  #   t.string "price"
+  #   t.text "description"
+  #   t.datetime "created_at", null: false
+  #   t.datetime "updated_at", null: false
+  # end
 
 end
