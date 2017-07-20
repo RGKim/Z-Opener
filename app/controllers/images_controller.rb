@@ -1,5 +1,6 @@
 class ImagesController < ApplicationController
   before_action :authenticate_user!, except: [ :index, :show ]
+  before_action :isadmin, except: [:index, :show]
   before_action :set_image, only: [:show, :edit, :update, :destroy]
   before_action :set_client
   before_action :set_os_collection
