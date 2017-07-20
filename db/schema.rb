@@ -10,19 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170720040549) do
+ActiveRecord::Schema.define(version: 20170720072630) do
 
-  # create_table "devices", force: :cascade do |t|
-  #   t.string "domain"
-  #   t.string "type"
-  #   t.string "public_ip"
-  #   t.string "private_ip"
-  #   t.string "region"
-  #   t.string "state"
-  #   t.date "order_date"
-  #   t.datetime "created_at", null: false
-  #   t.datetime "updated_at", null: false
-  # end
+  create_table "devices", force: :cascade do |t|
+    t.string "domain"
+    t.string "type"
+    t.string "public_ip"
+    t.string "private_ip"
+    t.string "region"
+    t.string "state"
+    t.date "order_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "images", force: :cascade do |t|
     t.string "template_name"
@@ -55,12 +55,31 @@ ActiveRecord::Schema.define(version: 20170720040549) do
     t.index ["image_id"], name: "index_orders_on_image_id"
   end
 
-  # create_table "virtualmachines", force: :cascade do |t|
-  #   t.string "datacenter"
-  #   t.string "price"
-  #   t.text "description"
-  #   t.datetime "created_at", null: false
-  #   t.datetime "updated_at", null: false
-  # end
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "ibm_id"
+    t.string "ibm_key"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "virtualmachines", force: :cascade do |t|
+    t.string "datacenter"
+    t.string "price"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end

@@ -39,6 +39,12 @@ gem 'xmlrpc', '~> 0.3.0'
 
 gem 'awesome_print'
 gem 'json'
+
+# 회원인증 및 권한설정을 위한 젬
+gem 'devise'     # 회원가입 및 인증
+gem 'rolify'     # role 관리
+gem 'authority'  # 권한설정
+gem 'bcrypt', '~> 3.1.11'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
