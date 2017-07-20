@@ -1,39 +1,20 @@
-<p id="notice"><%= notice %></p>
+<%
+SoftLayer::Client.default_client = @softlayer_client = SoftLayer::Client.new(
+  :username => "c001220_skcc70253",             # enter your username here
+      :api_key => "7d89165fd6d8fd259abfb7bba886ba00cb5428174c5e276cd595ed58091d3757",   # enter your api key here
+      :endpoint_URL => @API_PUBLIC_ENDPOINT
+)
+%>
 
-<h1>Devices</h1>
+<% account = SoftLayer::Account.account_for_client() %>
+<% @servers = account.servers%>
 
-<table>
-  <thead>
-    <tr>
-      <th>Domain</th>
-      <th>Type</th>
-      <th>Public ip</th>
-      <th>Private ip</th>
-      <th>Region</th>
-      <th>State</th>
-      <th>Order date</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<% @servers.each do |server| %>
+  <% ip_field = server.primary_public_ip ? server.primary_public_ip : "No Public Interface" %>
+  <%= server.fqdn %>
+  <%= server.datacenter["longName"] %>
+  <%= server.primary_private_ip %>
+  <%= server.primary_public_ip %>
+  <%= server['blockDeviceTemplateGroup']['name'] %>
 
-  <tbody>
-    <% @devices.each do |device| %>
-      <tr>
-        <td><%= device.domain %></td>
-        <td><%= device.type %></td>
-        <td><%= device.public_ip %></td>
-        <td><%= device.private_ip %></td>
-        <td><%= device.region %></td>
-        <td><%= device.state %></td>
-        <td><%= device.order_date %></td>
-        <td><%= link_to 'Show', device %></td>
-        <td><%= link_to 'Edit', edit_device_path(device) %></td>
-        <td><%= link_to 'Destroy', device, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Device', new_device_path %>
+<% end %>
