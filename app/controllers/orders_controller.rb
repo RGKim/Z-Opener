@@ -91,15 +91,15 @@ class OrdersController < ApplicationController
          {'id' => @order.os }, # CENTOS_6_64
          {'id' => @order.first_disk }, # 100 GB (SAN) First Disk
          {'id' => @order.second_disk }, # 100 GB (SAN) Second Disk
-         {'id' => @order.bandwidth }, # 250 GB Bandwidth
-         {'id' => 273 }, # 1 Gbps Public & Private Network Uplinks
+         {'id' => 1800 }, # 0 GB Bandwidth
+         {'id' => @order.uplink_port_speed }, # 1 Gbps Public & Private Network Uplinks
          {'id' => 21 }, # 1 IP Address
          {'id' => 420 }, # Unlimited SSL VPN Users & 1 PPTP VPN User per account
-         {'id' => 56 }, # Host Ping and TCP Service Monitoring
+         {'id' => @order.monitoring }, # Host Ping and TCP Service Monitoring
          {'id' => 57 }, # Email and Ticket
          {'id' => 418 }, # NESSUS_VULNERABILITY_ASSESSMENT_REPORTING
          {'id' => 905 }, # REBOOT_REMOTE_CONSOLE
-         {'id' => 58 }  # AUTOMATED_NOTIFICATION
+         {'id' => @order.response }  # AUTOMATED_NOTIFICATION
       ],
       'imageTemplateId' => @image.templateid,
       #'provisionScripts' => ['https://raw.githubusercontent.com/neuron03/provision/master/redmine_provision.sh']
@@ -126,7 +126,8 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:hostname, :domain, :location, :os, :usehourlypricing, :cpu, :ram, :first_disk, :second_disk, :bandwidth, :image_id)
+      params.require(:order).permit(:hostname, :domain, :location, :os, :usehourlypricing, :cpu, :ram, :first_disk,
+      :second_disk, :bandwidth, :image_id, :uplink_port_speed, :monitoring, :response)
     end
 
     def set_collection

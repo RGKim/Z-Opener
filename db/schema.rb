@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170720011653) do
+ActiveRecord::Schema.define(version: 20170720020453) do
 
   create_table "devices", force: :cascade do |t|
     t.string "domain"
@@ -50,6 +50,9 @@ ActiveRecord::Schema.define(version: 20170720011653) do
     t.integer "image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "uplink_port_speed"
+    t.integer "monitoring"
+    t.integer "response"
     t.index ["image_id"], name: "index_orders_on_image_id"
   end
 
