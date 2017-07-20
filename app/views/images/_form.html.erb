@@ -7,7 +7,7 @@
     <%= f.input :created_date %>
     <%= f.input :account %>
     <%= f.input :templateid %>
-    <%= f.input :os %>
+    <%= f.input :os, :collection => @operating_systems %>
     <%= f.input :provision_script %>
   </div>
 

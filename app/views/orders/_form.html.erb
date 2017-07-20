@@ -4,15 +4,14 @@
     <%= f.input :hostname %>
     <%= f.input :domain %>
     <%= f.input :location, collection: [1555995] %>
-    <%= f.input :os, :collection => @OperatingSystems %>
     <%= f.input :usehourlypricing %>
-    <%= f.input :cpu %>
-    <%= f.input :ram %>
-    <%= f.input :first_disk %>
-    <%= f.input :second_disk %>
-    <%= f.input :uplink_port_speed %>
-    <%= f.input :monitoring %>
-    <%= f.input :response %>
+    <%= f.input :cpu, collection: @cpu_core %>
+    <%= f.input :ram, collection: @ram %>
+    <%= f.input :first_disk, collection: @first_disk %>
+    <%= f.input :second_disk, collection: @second_disk %>
+    <%= f.input :uplink_port_speed, collection: @uplink_port_speed %>
+    <%= f.input :monitoring, collection: @monitoring %>
+    <%= f.input :response, collection: @response %>
   </div>
 
   <div class="form-actions">

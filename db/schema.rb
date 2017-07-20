@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170720020453) do
+ActiveRecord::Schema.define(version: 20170720040549) do
 
   create_table "devices", force: :cascade do |t|
     t.string "domain"
@@ -40,7 +40,6 @@ ActiveRecord::Schema.define(version: 20170720020453) do
     t.string "hostname"
     t.string "domain"
     t.integer "location"
-    t.string "os"
     t.boolean "usehourlypricing"
     t.integer "cpu"
     t.integer "ram"

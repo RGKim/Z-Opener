@@ -1,7 +1,7 @@
 class ImagesController < ApplicationController
   before_action :set_image, only: [:show, :edit, :update, :destroy]
   before_action :set_client
-
+  before_action :set_os_collection
   # GET /images
   # GET /images.json
   def index
@@ -128,6 +128,11 @@ class ImagesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_os_collection
+      @operating_systems = {'UBUNTU_16_64 (minimal)' => 171609, 'UBUNTU_16.64 (LAMP)' => 175787,
+                            'CENTOS 7 (minimal)' => 46466, 'CENTOS 7 (LAMP)' => 46456}
+    end
+
     def set_image
       @image = Image.find(params[:id])
     end
