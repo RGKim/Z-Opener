@@ -6,12 +6,13 @@
 
   <% @servers.each do |server| %>
     <% ip_field = server.primary_public_ip ? server.primary_public_ip : "No Public Interface" %>
-    <%= server.fqdn %>
+    
     <% if !server.datacenter.nil? %>
+      <%= server['blockDeviceTemplateGroup']['name'] %>
+      <%= server.fqdn %>
       <%= server.datacenter["longName"] %>
       <%= server.primary_private_ip %>
       <%= server.primary_public_ip %>
-      <%= server['blockDeviceTemplateGroup']['name'] %>
     <% end %>
     <br>
 

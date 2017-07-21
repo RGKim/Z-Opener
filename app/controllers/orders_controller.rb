@@ -34,7 +34,7 @@ class OrdersController < ApplicationController
       if @order.save
 #        format.html { redirect_to (@image.present? ? [@order.image, @order] : @order), notice: 'Order was successfully created.' }
 #        format.json { render :show, status: :created, location: @order }
-        redirect_to devices_url
+
         server_order
 #      else
 #        format.html { render :new }
@@ -99,9 +99,19 @@ class OrdersController < ApplicationController
       'imageTemplateId' => @image.templateid,
       'provisionScripts' => [@image.provision_script]
     }
+    begin
+        order = @softlayer_client['Product_Order'].verifyOrder(productOrder)
+      rescue => exception
+        flash[:alert] = "다음과 같은 이유로 인해 상품 주문이 완료되지 못 하였습니다. #{exception}"
+      else
+        @softlayer_client['Product_Order'].placeOrder(order)
+        redirect_to devices_url
+    end
 
-    @order = @softlayer_client['Product_Order'].placeOrder(productOrder)
   end
+
+
+
 
 
   private
