@@ -1,6 +1,5 @@
 
 
-
 <% if user_signed_in? %>
   <% account = SoftLayer::Account.account_for_client() %>
   <% @servers = account.servers%>
@@ -8,10 +7,12 @@
   <% @servers.each do |server| %>
     <% ip_field = server.primary_public_ip ? server.primary_public_ip : "No Public Interface" %>
     <%= server.fqdn %>
-    <%= server.datacenter["longName"] %>
-    <%= server.primary_private_ip %>
-    <%= server.primary_public_ip %>
-    <%= server['blockDeviceTemplateGroup']['name'] %>
+    <% if !server.datacenter.nil? %>
+      <%= server.datacenter["longName"] %>
+      <%= server.primary_private_ip %>
+      <%= server.primary_public_ip %>
+      <%= server['blockDeviceTemplateGroup']['name'] %>
+    <% end %>
     <br>
 
   <% end %>
