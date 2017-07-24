@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'registrations' }
   resources :images do
-  resources :orders
+    resources :orders do
+      get :place_order
+    end
   end
+  
   resources :images
   root 'devices#index'
   get '/order_page' => 'images#order_page'
