@@ -100,19 +100,50 @@ class OrdersController < ApplicationController
       'provisionScripts' => [@image.provision_script]
     }
     begin
-        order = @softlayer_client['Product_Order'].verifyOrder(productOrder)
+        @order_veirfy = @softlayer_client['Product_Order'].verifyOrder(productOrder)
       rescue => exception
         flash[:alert] = "다음과 같은 이유로 인해 상품 주문이 완료되지 못 하였습니다. #{exception}"
       else
-        @softlayer_client['Product_Order'].placeOrder(order)
-        redirect_to devices_url
+        render 'check_order'
+        # @softlayer_client['Product_Order'].placeOrder(order)
+        # redirect_to devices_url
     end
 
   end
 
-
-
-
+  def place_order
+    productOrder = {
+      'virtualGuests' => [{
+         'hostname' => @image.orders[-1].hostname,
+         'domain'   => @image.orders[-1].domain,
+#         'primaryBackendNetworkComponent' => { 'networkVlan' => { 'id' => 1286783 } }
+      }],
+      'location' => @image.orders[-1].location,
+      'packageId' => 46,
+      'operatingSystemReferenceCode' => @image.os,
+      'useHourlyPricing' => @image.orders[-1].usehourlypricing,
+      'prices' => [
+         {'id' => @image.orders[-1].cpu }, # 1 x 2.0 GHz Core
+         {'id' => @image.orders[-1].ram }, # 1 GB RAM
+         {'id' => @image.os }, # CENTOS_6_64
+         {'id' => @image.orders[-1].first_disk }, # 100 GB (SAN) First Disk
+         {'id' => @image.orders[-1].second_disk }, # 100 GB (SAN) Second Disk
+         {'id' => 1800 }, # 0 GB Bandwidth
+         {'id' => @image.orders[-1].uplink_port_speed }, # 1 Gbps Public & Private Network Uplinks
+         {'id' => 21 }, # 1 IP Address
+         {'id' => 420 }, # Unlimited SSL VPN Users & 1 PPTP VPN User per account
+         {'id' => @image.orders[-1].monitoring }, # Host Ping and TCP Service Monitoring
+         {'id' => 57 }, # Email and Ticket
+         {'id' => 418 }, # NESSUS_VULNERABILITY_ASSESSMENT_REPORTING
+         {'id' => 905 }, # REBOOT_REMOTE_CONSOLE
+         {'id' => @image.orders[-1].response }  # AUTOMATED_NOTIFICATION
+      ],
+      'imageTemplateId' => @image.templateid,
+      'provisionScripts' => [@image.provision_script]
+    }
+    @softlayer_client['Product_Order'].placeOrder(productOrder)
+    redirect_to devices_url
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
