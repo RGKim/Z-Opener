@@ -1,6 +1,17 @@
 다음과 같은 스펙으로 주문이 가능합니다.
+주문을 원하시면 아래의 주문하기 버튼을 눌러주십시오.
 
-<%= @order.hostname %>
-<%= @order %>
+<p> 상품명: <%= @image.template_name %></p>
+<p> 호스트 네임: <%= @order.hostname %> </p>
+<p> 도메인: <%= @order.domain %> </p>
+<p> 로케이션: <%= @location.key(@order.location) %> </p>
+<p> 과금단위: <%= @useHourlyPricing.key(@order.usehourlypricing) %> </p>
+<p> CPU: <%= @cpu_core.key(@order.cpu) %> </p>
+<p> RAM: <%= @ram.key(@order.ram) %> </p>
+<p> First Disk: <%= @first_disk.key(@order.first_disk) %> </p>
+<p> Second Disk: <%= @second_disk.key(@order.second_disk) %> </p>
+<p> Uplink Port_Speed: <%= @uplink_port_speed.key(@order.uplink_port_speed) %> </p>
+<p> Monitoring: <%= @monitoring.key(@order.monitoring) %> </p>
+<p> Response: <%= @response.key(@order.response) %> </p>
 
 <%= link_to "주문하기", image_order_place_order_path(@image, @order) %>

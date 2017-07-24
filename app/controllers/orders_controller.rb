@@ -1,9 +1,9 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, except: [ :index, :show ]
+  before_action :set_client
+  before_action :set_collection#, only: [:new, :server_order]
   before_action :set_image
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  before_action :set_collection, only: [:new]
-  before_action :set_client
 
   # GET /orders
   # GET /orders.json
@@ -112,6 +112,7 @@ class OrdersController < ApplicationController
   end
 
   def place_order
+    render 'place_order'
     productOrder = {
       'virtualGuests' => [{
          'hostname' => @image.orders[-1].hostname,
@@ -199,5 +200,6 @@ class OrdersController < ApplicationController
                             '100 Mbps Private Network Uplink' => 898, '1 Gbps Private Network Uplink' => 899}
       @monitoring = {'Host Ping' => 55, 'Host Ping and TCP Service Monitoring' => 56}
       @response = {'Automated Notification' => 58, 'Automated Reboot from Monitoring' => 59}
+      @useHourlyPricing = {'Hourly' => true, 'Monthly' => false}
     end
 end
